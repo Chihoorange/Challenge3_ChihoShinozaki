@@ -1,6 +1,6 @@
 function getAPIdata(location) {
 	getWeather(location)
-	getAirQuality(location)
+	getNews(location)
 }
 
 
@@ -37,7 +37,36 @@ function onWeatherSucces(response) {
 	weatherResult.innerHTML = response[0].main
 }
 
-//---air quality---//
-function getAirQuality(location) {
-	var request = 'api.airvisual.com/v2/countries?key={{YOUR_API_KEY}}'
+//---News---//
+function getNews(location) {
+	var request = 'https://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + location + '&api-key=c3U2yqxBzsuFJYQ4xE0txbaxVyEgk0Ti';
+
+	fetch(request)
+	.then(function(response) {
+		if(!response.ok) throw Error(response.statusText);
+		return response.json();
+	})
+	
+	.then(function(response) {
+		console.log(response);
+		onNewsSucces(response.response.docs);
+	})
+	
+	// catch error
+	.catch(function (error) {
+		// onAPIError();
+		console.error('Request failed', error);
+	});
+}
+
+function onNewsSucces(response) {
+	var newsResult = document.getElementById('newYorkTimes');
+	newsResult.innerHTML = response[0].headline.main;
+
+	var newsUrl = response[0].web_url;
+	document.getElementById('newYorkTimes').onclick = function (){
+		location.href = newsUrl;
+
+	}
+	
 }
