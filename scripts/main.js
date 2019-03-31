@@ -1,6 +1,7 @@
 function getAPIdata(location) {
 	getWeather(location)
 	getNews(location)
+	getGeoInfo(location)
 }
 
 
@@ -70,3 +71,15 @@ function onNewsSucces(response) {
 	}
 	
 }
+
+//---geo info---
+function getGeoInfo(location){
+	var request = 'http://www.mapquestapi.com/geocoding/v1/address?key=BPXh2WXihHFYqEo4S1EnMcVa2OL4qjJ1&location='+ location'';
+
+}
+
+/*ここから！
+1. set array to get 'latLng' from https://developer.mapquest.com/documentation/geocoding-api/address/get/
+2. create function that you can get windSpeed/visibility from https://dashboard.stormglass.io/
+*/
+
