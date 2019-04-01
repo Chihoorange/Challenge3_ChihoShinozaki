@@ -2,6 +2,7 @@ function getAPIdata(location) {
 	getWeather(location)
 	getNews(location)
 	getLatLng(location)
+	//getWindSpeed(location)
 }
 
 
@@ -83,6 +84,7 @@ function onNewsSucces(response) {
 //---geo info---
 function getLatLng(location){
 	var request = 'http://www.mapquestapi.com/geocoding/v1/address?key=BPXh2WXihHFYqEo4S1EnMcVa2OL4qjJ1&location='+ location +'';
+	
 	fetch(request)
 	.then(function(response) {
 		if(!response.ok) throw Error(response.statusText);
@@ -90,8 +92,8 @@ function getLatLng(location){
 	})
 	
 	.then(function(response) {
-		console.log(response);
 		onLatLngSucces(response.results[0].locations[0].latLng);
+		console.log(response);
 	})
 	
 	// catch error
@@ -100,13 +102,38 @@ function getLatLng(location){
 	});
 }
 
-function onLatLngSucces(response){
-	var latLngResult = console.log(locations[0].location.latLng);
-
+function onLatLngSucces(latLng){
+	getWindSpeed(latLng.lat, latLng.lng);
+	// console.log(latLng);
 }
 
-/*ここから！
-1. set array to get 'latLng' from https://developer.mapquest.com/documentation/geocoding-api/address/get/
-2. create function that you can get windSpeed/visibility from https://dashboard.stormglass.io/
-*/
 
+//---apply the latlng to Wind Speed---//
+function getWindSpeed(lat, lng) {
+var request = "https://api.stormglass.io/point?lat=" + lat + "&lng=" + lng + "&params=waveHeight,windSpeed";
+
+fetch(request, {
+  headers: {
+    'Authorization': 'a76f40f8-53f8-11e9-869f-0242ac130004-a76f41e8-53f8-11e9-869f-0242ac130004'
+  }
+})
+	.then(function(response) {
+		if(!response.ok) throw Error(response.statusText);
+		return response.json();
+	})
+	
+	.then(function(response) {
+		onWindSpeedSuccess(response);
+		console.log(response);
+	})
+	
+	// catch error
+	.catch(function (error) {
+		console.error('Request failed', error);
+	});
+}
+
+function onWindSpeedSuccess(response) {
+	var windSpeedResult = document.getElementById('windSpeed');
+	windSpeedResult.innerHTML = Math.floor(response.hours[0].windSpeed[1].value)*1.94;
+}

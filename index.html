@@ -6,25 +6,35 @@
 		<link rel="stylesheet" type="text/css" href="styles/mystyle.css">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
 		<script src="scripts/main.js" defer></script>
+		<link href="https://fonts.googleapis.com/css?family=Ubuntu+Condensed" rel="stylesheet">
 	</head>
 	<body>
 		<section id = "pageTitle">
 			<div class = "contentWrap">
 				<h1>Find the Perfect Spot</h1>
-				<div class = "inputSection">
-				<form>
-			        <label>Enter location</label>
-			        <input id="locationInput" type="text">
-			        <button type="button" onclick="getAPIdata(document.getElementById('locationInput').value)">Send</button>
-			    </form>
-				</div>
 			</div>
 		</section>
 		<main>
+			<div id = 'inputSection'>
+			<form>
+			        <label>Enter location</label>
+			        <input id="locationInput" type="text">
+			        <button type="button" onclick="getAPIdata(document.getElementById('locationInput').value)">Send</button>
+			</form>
+			</div>
 			<div id = "searchResult">
-				<div>Weather: <span id="Weather"></span></div>
-				<div>Air Quality: <span id="airQuality"></span></div>
-				<div>News: <span id="newYorkTimes"></span></div>
+				<table align="center">
+				<tr>
+					<td><h2>Wind Speed</h2></td>
+					<td><h2>Weather</h2></td>			
+					<td><h2>News</h2></td>
+				</tr>
+				<tr>
+				<th><span id="windSpeed"></span>kts</th>
+				<th><span id="Weather"></span></th>
+				<th><span id="newYorkTimes"></span></th>
+				</tr>
+				</table>
 			</div>
 
 	</body>

@@ -1,0 +1,29 @@
+section{
+    margin:10px;
+}
+body{
+	font-family: 'Ubuntu Condensed', sans-serif;
+}
+h1 {
+    text-align: center;
+    font-size:55pt;
+}
+#inputSection {
+    display:flex; 
+    justify-content:center;
+}
+table {
+	position: center;
+	width: auto;
+}
+
+th, td{
+	padding: 10px;
+	text-align: center;
+	color: black;
+	width: 300px;
+}
+
+table {
+	width:80%;
+}
