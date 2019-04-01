@@ -1,7 +1,7 @@
 function getAPIdata(location) {
 	getWeather(location)
 	getNews(location)
-	getGeoInfo(location)
+	getLatLng(location)
 }
 
 
@@ -28,7 +28,6 @@ function getWeather(location) {
 	
 	// catch error
 	.catch(function (error) {
-		// onAPIError();
 		console.error('Request failed', error);
 	});
 }
@@ -40,7 +39,17 @@ function onWeatherSucces(response) {
 
 //---News---//
 function getNews(location) {
-	var request = 'https://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + location + '&api-key=c3U2yqxBzsuFJYQ4xE0txbaxVyEgk0Ti';
+	var today = new Date();
+	var month = (today.getMonth() + 1);
+	var day = (today.getDay());
+	var year = (today.getFullYear());
+
+    if (month < 10) month = '0' + month;
+    if (day < 10) day = '0' + day;
+
+    var todayText = year + month + day
+
+	var request = 'https://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + location + '&api-key=c3U2yqxBzsuFJYQ4xE0txbaxVyEgk0Ti&begin_date=' + todayText + '&end_date=' + todayText;
 
 	fetch(request)
 	.then(function(response) {
@@ -55,7 +64,6 @@ function getNews(location) {
 	
 	// catch error
 	.catch(function (error) {
-		// onAPIError();
 		console.error('Request failed', error);
 	});
 }
@@ -73,8 +81,27 @@ function onNewsSucces(response) {
 }
 
 //---geo info---
-function getGeoInfo(location){
-	var request = 'http://www.mapquestapi.com/geocoding/v1/address?key=BPXh2WXihHFYqEo4S1EnMcVa2OL4qjJ1&location='+ location'';
+function getLatLng(location){
+	var request = 'http://www.mapquestapi.com/geocoding/v1/address?key=BPXh2WXihHFYqEo4S1EnMcVa2OL4qjJ1&location='+ location +'';
+	fetch(request)
+	.then(function(response) {
+		if(!response.ok) throw Error(response.statusText);
+		return response.json();
+	})
+	
+	.then(function(response) {
+		console.log(response);
+		onLatLngSucces(response.results[0].locations[0].latLng);
+	})
+	
+	// catch error
+	.catch(function (error) {
+		console.error('Request failed', error);
+	});
+}
+
+function onLatLngSucces(response){
+	var latLngResult = console.log(locations[0].location.latLng);
 
 }
 
