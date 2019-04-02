@@ -103,7 +103,7 @@ function onNewsFail(error){
 
 //---geo info---
 function getLatLng(location){
-	var request = 'http://www.mapquestapi.com/geocoding/v1/address?key=BPXh2WXihHFYqEo4S1EnMcVa2OL4qjJ1&location='+ location +'';
+	var request = 'https://www.mapquestapi.com/geocoding/v1/address?key=BPXh2WXihHFYqEo4S1EnMcVa2OL4qjJ1&location='+ location +'';
 	
 	fetch(request)
 	.then(function(response) {
