@@ -1,8 +1,7 @@
 function getAPIdata(location) {
 	getWeather(location)
 	getNews(location)
-	getLatLng(location)
-	//getWindSpeed(location)
+	// getLatLng(location)
 }
 
 
@@ -36,6 +35,23 @@ function getWeather(location) {
 function onWeatherSucces(response) {
 	var weatherResult = document.getElementById('Weather');
 	weatherResult.innerHTML = response[0].main
+
+	var pictureObject = document.getElementById('weatherSymbol');
+	var newPicture = 'images/clear.png';
+
+	if (response[0].main == 'Clouds') {
+		newPicture = 'images/cloudy.png';
+	} else if (response[0].main == 'Rain') {
+		newPicture = 'images/rain.png';
+	} else if (response[0].main == 'Thunder') {
+		newPicture = 'images/thunder.png';
+	} else if (response[0].main == 'Foggy') {
+		newPicture = 'images/foggy.png';
+	} else if (response[0].main == 'Mist') {
+		newPicture = 'images/mist.png'
+	}
+
+	pictureObject.src = newPicture;
 }
 
 //---News---//
@@ -76,64 +92,68 @@ function onNewsSucces(response) {
 	var newsUrl = response[0].web_url;
 	document.getElementById('newYorkTimes').onclick = function (){
 		location.href = newsUrl;
-
 	}
 	
 }
 
-//---geo info---
-function getLatLng(location){
-	var request = 'http://www.mapquestapi.com/geocoding/v1/address?key=BPXh2WXihHFYqEo4S1EnMcVa2OL4qjJ1&location='+ location +'';
-	
-	fetch(request)
-	.then(function(response) {
-		if(!response.ok) throw Error(response.statusText);
-		return response.json();
-	})
-	
-	.then(function(response) {
-		onLatLngSucces(response.results[0].locations[0].latLng);
-		console.log(response);
-	})
-	
-	// catch error
-	.catch(function (error) {
-		console.error('Request failed', error);
-	});
+function onNewsFail(error){
+	var newsResult = document.getElementById('newYorkTimes');
+	newsResult.innerHTML = 'No related news';
 }
 
-function onLatLngSucces(latLng){
-	getWindSpeed(latLng.lat, latLng.lng);
-	// console.log(latLng);
-}
-
-
-//---apply the latlng to Wind Speed---//
-function getWindSpeed(lat, lng) {
-var request = "https://api.stormglass.io/point?lat=" + lat + "&lng=" + lng + "&params=waveHeight,windSpeed";
-
-fetch(request, {
-  headers: {
-    'Authorization': 'a76f40f8-53f8-11e9-869f-0242ac130004-a76f41e8-53f8-11e9-869f-0242ac130004'
-  }
-})
-	.then(function(response) {
-		if(!response.ok) throw Error(response.statusText);
-		return response.json();
-	})
+// //---geo info---
+// function getLatLng(location){
+// 	var request = 'http://www.mapquestapi.com/geocoding/v1/address?key=BPXh2WXihHFYqEo4S1EnMcVa2OL4qjJ1&location='+ location +'';
 	
-	.then(function(response) {
-		onWindSpeedSuccess(response);
-		console.log(response);
-	})
+// 	fetch(request)
+// 	.then(function(response) {
+// 		if(!response.ok) throw Error(response.statusText);
+// 		return response.json();
+// 	})
 	
-	// catch error
-	.catch(function (error) {
-		console.error('Request failed', error);
-	});
-}
+// 	.then(function(response) {
+// 		onLatLngSucces(response.results[0].locations[0].latLng);
+// 		console.log(response);
+// 	})
+	
+// 	// catch error
+// 	.catch(function (error) {
+// 		console.error('Request failed', error);
+// 	});
+// }
 
-function onWindSpeedSuccess(response) {
-	var windSpeedResult = document.getElementById('windSpeed');
-	windSpeedResult.innerHTML = Math.floor(response.hours[0].windSpeed[1].value)*1.94;
-}
+// function onLatLngSucces(latLng){
+// 	getWindSpeed(latLng.lat, latLng.lng);
+// 	// console.log(latLng);
+// }
+
+
+// //---apply the latlng to Wind Speed---//
+// function getWindSpeed(lat, lng) {
+// var request = "https://api.stormglass.io/point?lat=" + lat + "&lng=" + lng + "&params=waveHeight,windSpeed";
+
+// fetch(request, {
+//   headers: {
+//     'Authorization': 'a76f40f8-53f8-11e9-869f-0242ac130004-a76f41e8-53f8-11e9-869f-0242ac130004'
+//   }
+// })
+// 	.then(function(response) {
+// 		if(!response.ok) throw Error(response.statusText);
+// 		return response.json();
+// 	})
+	
+// 	.then(function(response) {
+// 		onWindSpeedSuccess(response);
+// 		console.log(response);
+// 	})
+	
+// 	// catch error
+// 	.catch(function (error) {
+// 		console.error('Request failed', error);
+// 	});
+// }
+
+// function onWindSpeedSuccess(response) {
+// 	var windSpeedResult = document.getElementById('windSpeed');
+// 	windSpeedResult.innerHTML = Math.floor(response.hours[0].windSpeed[1].value)*1.94;
+// }
