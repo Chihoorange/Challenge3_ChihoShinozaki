@@ -1,12 +1,52 @@
-section{
-    margin:10px;
-}
 body{
 	font-family: 'Ubuntu Condensed', sans-serif;
+	margin: 0;
+	padding: 0;
+	background: linear-gradient(125deg,#F2D2EF,#A9F8FB,#CDEDFD,#B6DCFE,#96E0EA);
+	background-size: 400%;
+	animation:bganimation 20s infinite;
+	height: 100%;
+    overflow: hidden;
 }
+
+section{
+    margin:0px;
+    padding:40px;
+    background: linear-gradient(rgba(236, 240, 241,0.2), rgba(189, 195, 199,0.6)),
+    			url(../images/photo-1537431701805-c1bb45cd2f92.jpg) no-repeat fixed;
+				background-size: 100%;
+	color: #FFFBEA;
+}
+
+content-wrap {
+	width: 100%;
+	margin:  0 auto;
+	padding: 70px 50px;
+	overflow: auto;
+}
+
+@keyframes bganimation {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+div#inputSection {
+    background: white;
+    padding: 15px;
+}
+
 h1 {
     text-align: center;
     font-size:55pt;
+    margin: 0px
+    padding:100px;
 }
 #inputSection {
     display:flex; 
@@ -24,6 +64,56 @@ th, td{
 	width: 300px;
 }
 
+th {
+	text-size:15px;
+}
+
+td {
+	text-size:12px;
+	background: white;
+	height:10px;
+}
+
+#windSpeed{
+	font-size:30pt;
+	
+}
+.resultContent{
+	height: 125px;	
+}
+
 table {
 	width:80%;
+	border-collapse: separate;
+    border-spacing: 10px;
+
+}
+p {
+	margin:0;
+}
+
+span #windSpeed{
+	text-size:20pt;
+}
+#newYorkTimes {
+	cursor: pointer;
+}
+
+#newYorkTimes:hover {
+	color: orange;
+}
+.footer-wrap{
+	margin-bottom:0;
+	text-align:center;
+	color:gray;
+	height:100%;
+	
+}
+footer {
+	margin:0px;
+	padding-top: 90px;
+}
+
+footer p {
+	font-size:9pt;
 }

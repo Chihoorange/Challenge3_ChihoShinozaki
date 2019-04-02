@@ -11,35 +11,40 @@
 	<body>
 		<section id = "pageTitle">
 			<div class = "contentWrap">
-				<h1>Find the Perfect Spot</h1>
+				<h1>Home Planet</h1>
 			</div>
 		</section>
 		<main>
 			<div id = 'inputSection'>
 			<form>
-			        <label>Enter location</label>
-			        <input id="locationInput" type="text">
+			        <label>Find location! </label>
+			        <input id="locationInput" type="text" placeholder="Enter country or city">
 			        <button type="button" onclick="getAPIdata(document.getElementById('locationInput').value)">Send</button>
 			</form>
 			</div>
 			<div id = "searchResult">
 				<table align="center">
 				<tr>
-					<td><h2>Wind Speed</h2></td>
-					<td><h2>Weather</h2></td>			
-					<td><h2>News</h2></td>
+					<th><h2>Wind Speed</h2></th>
+					<th><h2>Weather</h2></th>			
+					<th><h2>News</h2></th>
 				</tr>
-				<tr>
-					<td></span></td>
+				<tr class = "resultContent">
+					<td><span id="windSpeed"></span><p>kts</p></td>
 					<td><img id = "weatherSymbol"/></td>
-					<td></td>
+					<td><span id="newYorkTimes"></span></td>
 				</tr>
 				<tr>
-				<th><span id="windSpeed"></span>kts</th>
-				<th><span id="Weather"></span></th>
-				<th><span id="newYorkTimes"></span></th>
+					<td><span id="speedCondition"></span></td>
+					<td><span id="Weather"></span></td>
 				</tr>
 				</table>
 			</div>
+		</main>
+		<footer>
+        <div class="footer-wrap">
+            <p>Copyright 2019 by Chiho Shinozaki</p>
+        </div>
+    	</footer>
 
 	</body>

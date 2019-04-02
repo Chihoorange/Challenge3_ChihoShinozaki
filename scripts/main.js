@@ -1,7 +1,7 @@
 function getAPIdata(location) {
 	getWeather(location)
 	getNews(location)
-	// getLatLng(location)
+	getLatLng(location)
 }
 
 
@@ -101,59 +101,77 @@ function onNewsFail(error){
 	newsResult.innerHTML = 'No related news';
 }
 
-// //---geo info---
-// function getLatLng(location){
-// 	var request = 'http://www.mapquestapi.com/geocoding/v1/address?key=BPXh2WXihHFYqEo4S1EnMcVa2OL4qjJ1&location='+ location +'';
+//---geo info---
+function getLatLng(location){
+	var request = 'http://www.mapquestapi.com/geocoding/v1/address?key=BPXh2WXihHFYqEo4S1EnMcVa2OL4qjJ1&location='+ location +'';
 	
-// 	fetch(request)
-// 	.then(function(response) {
-// 		if(!response.ok) throw Error(response.statusText);
-// 		return response.json();
-// 	})
+	fetch(request)
+	.then(function(response) {
+		if(!response.ok) throw Error(response.statusText);
+		return response.json();
+	})
 	
-// 	.then(function(response) {
-// 		onLatLngSucces(response.results[0].locations[0].latLng);
-// 		console.log(response);
-// 	})
+	.then(function(response) {
+		onLatLngSucces(response.results[0].locations[0].latLng);
+		console.log(response);
+	})
 	
-// 	// catch error
-// 	.catch(function (error) {
-// 		console.error('Request failed', error);
-// 	});
-// }
+	// catch error
+	.catch(function (error) {
+		console.error('Request failed', error);
+	});
+}
 
-// function onLatLngSucces(latLng){
-// 	getWindSpeed(latLng.lat, latLng.lng);
-// 	// console.log(latLng);
-// }
+function onLatLngSucces(latLng){
+	getWindSpeed(latLng.lat, latLng.lng);
+	// console.log(latLng);
+}
 
 
-// //---apply the latlng to Wind Speed---//
-// function getWindSpeed(lat, lng) {
-// var request = "https://api.stormglass.io/point?lat=" + lat + "&lng=" + lng + "&params=waveHeight,windSpeed";
+//---apply the latlng to Wind Speed---//
+function getWindSpeed(lat, lng) {
+var request = "https://api.stormglass.io/point?lat=" + lat + "&lng=" + lng + "&params=waveHeight,windSpeed";
 
-// fetch(request, {
-//   headers: {
-//     'Authorization': 'a76f40f8-53f8-11e9-869f-0242ac130004-a76f41e8-53f8-11e9-869f-0242ac130004'
-//   }
-// })
-// 	.then(function(response) {
-// 		if(!response.ok) throw Error(response.statusText);
-// 		return response.json();
-// 	})
+fetch(request, {
+  headers: {
+    'Authorization': 'a76f40f8-53f8-11e9-869f-0242ac130004-a76f41e8-53f8-11e9-869f-0242ac130004'
+  }
+})
+	.then(function(response) {
+		if(!response.ok) throw Error(response.statusText);
+		return response.json();
+	})
 	
-// 	.then(function(response) {
-// 		onWindSpeedSuccess(response);
-// 		console.log(response);
-// 	})
+	.then(function(response) {
+		onWindSpeedSuccess(response);
+		console.log(response);
+	})
 	
-// 	// catch error
-// 	.catch(function (error) {
-// 		console.error('Request failed', error);
-// 	});
-// }
+	// catch error
+	.catch(function (error) {
+		console.error('Request failed', error);
+	});
+}
 
-// function onWindSpeedSuccess(response) {
-// 	var windSpeedResult = document.getElementById('windSpeed');
-// 	windSpeedResult.innerHTML = Math.floor(response.hours[0].windSpeed[1].value)*1.94;
-// }
+function onWindSpeedSuccess(response) {
+	var windSpeedResult = document.getElementById('windSpeed');
+	windSpeedResult.innerHTML = Math.floor(response.hours[0].windSpeed[1].value)*1.94;
+
+	var condition = document.getElementById('speedCondition');
+	var changeCondition = 'Safe';
+	var changeColor = '#13C1B6';	
+
+	if ((response.hours[0].windSpeed[1].value)*1.94 >= 30) {
+		changeCondition = 'Danger';
+		changeColor = '#FF427A'
+	} else if ((response.hours[0].windSpeed[1].value)*1.94 >= 20) {
+		changeCondition = 'Strong Wind';
+		changeColor = '#E0E028'
+	} else if ((response.hours[0].windSpeed[1].value)*1.94 >= 2) {
+		changeCondition = 'Perfect';
+		changeColor = '#0083FF'
+	}
+
+	condition.innerHTML = changeCondition;
+	document.getElementById('speedCondition').style.color = changeColor;
+}
