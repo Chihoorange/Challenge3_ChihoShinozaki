@@ -164,11 +164,14 @@ function onWindSpeedSuccess(response) {
 	if ((response.hours[0].windSpeed[1].value)*1.94 >= 30) {
 		changeCondition = 'Danger';
 		changeColor = '#FF427A'
-	} else if ((response.hours[0].windSpeed[1].value)*1.94 >= 20) {
+	} else if ((response.hours[0].windSpeed[1].value)*1.94 >= 21 && (response.hours[0].windSpeed[1].value)*1.94 <=29) {
+		changeCondition = 'Very Strong Wind';
+		changeColor = '#FF427A'
+	} else if ((response.hours[0].windSpeed[1].value)*1.94 >= 16 && (response.hours[0].windSpeed[1].value)*1.94 <=20) {
 		changeCondition = 'Strong Wind';
 		changeColor = '#E0E028'
-	} else if ((response.hours[0].windSpeed[1].value)*1.94 >= 2) {
-		changeCondition = 'Perfect';
+	} else if ((response.hours[0].windSpeed[1].value)*1.94 >= 0 && (response.hours[0].windSpeed[1].value)*1.94 <= 15) {
+		changeCondition = 'Safe';
 		changeColor = '#0083FF'
 	}
 

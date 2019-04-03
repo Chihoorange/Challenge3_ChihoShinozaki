@@ -90,6 +90,7 @@ table {
 }
 p {
 	margin:0;
+	text-align: center;
 }
 
 span #windSpeed{
